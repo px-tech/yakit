@@ -734,6 +734,18 @@ const Main: React.FC<MainProp> = (props) => {
             addFuzzerList(time, request || "", isHttps || false)
         }
     })
+    const addFacadeServer = useMemoizedFn((res: any) => {
+        const {facadeParams, classParam, classType} = res || {}
+        if (facadeParams && classParam && classType) {
+            addTabPage(Route.ReverseServer_New, {
+                node: ContentByRoute(Route.ReverseServer_New, undefined, {
+                    facadeServerParams: facadeParams,
+                    classGeneraterParams: classParam,
+                    classType: classType
+                })
+            })
+        }
+    })
     const addScanPort = useMemoizedFn((res: any) => {
         const {URL = ""} = res || {}
         if (URL) {
@@ -821,6 +833,7 @@ const Main: React.FC<MainProp> = (props) => {
             if (type === "bug-test") addBugTest(1, data)
             if (type === "plugin-store") addYakRunning(data)
             if (type === "batch-exec-recover") addBatchExecRecover(data as UnfinishedBatchTask)
+            if (type === "facade-server") addFacadeServer(data)
             console.info("send to tab: ", type)
         })
 
