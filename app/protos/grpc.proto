@@ -247,7 +247,7 @@ service Yak {
   rpc VerifyTunnelServerDomain(VerifyTunnelServerDomainParams) returns (VerifyTunnelServerDomainResponse) ;
   rpc StartFacades(StartFacadesParams) returns (stream ExecResult);
   rpc StartFacadesWithYsoObject(StartFacadesWithYsoParams) returns (stream ExecResult);
-  rpc ApplyClassToFacades(ApplyClassToFacadesParams) returns (Empty);
+  rpc ApplyClassToFacades(ApplyClassToFacadesParamsWithVerbose) returns (Empty);
   rpc BytesToBase64(BytesToBase64Request) returns (BytesToBase64Response);
   rpc ConfigGlobalReverse(ConfigGlobalReverseParams) returns (stream Empty);
   rpc AvailableLocalAddr(Empty) returns (AvailableLocalAddrResponse);
@@ -270,11 +270,11 @@ service Yak {
   rpc QueryAvailableReportFrom(Empty) returns (Fields);
 
   //Yso
-  rpc GetAllYsoGadgetOptions(Empty) returns (YsoOptions);
-  rpc GetAllYsoClassOptions(YsoOptionsRequerst) returns (YsoOptions);
-  rpc GetAllYsoClassGeneraterOptions(YsoOptionsRequerst) returns (YsoClassOptionsResponse);
-  rpc GenerateYsoCode(YsoOptionsRequerst) returns (YsoCodeResponse);
-  rpc GenerateYsoBytes(YsoOptionsRequerst) returns (YsoBytesResponse);
+  rpc GetAllYsoGadgetOptions(Empty) returns (YsoOptionsWithVerbose);
+  rpc GetAllYsoClassOptions(YsoOptionsRequerstWithVerbose) returns (YsoOptionsWithVerbose);
+  rpc GetAllYsoClassGeneraterOptions(YsoOptionsRequerstWithVerbose) returns (YsoClassOptionsResponseWithVerbose);
+  rpc GenerateYsoCode(YsoOptionsRequerstWithVerbose) returns (YsoCodeResponse);
+  rpc GenerateYsoBytes(YsoOptionsRequerstWithVerbose) returns (YsoBytesResponse);
 
   // DNSLog / ICMP / RandomTrigger
   rpc SetYakBridgeLogServer(YakDNSLogBridgeAddr) returns (Empty);
@@ -676,21 +676,42 @@ message YsoOption{
   string NameVerbose = 2;
   string Help = 3;
 }
-message YsoOptions{
+message YsoOptionsWithVerbose{
   repeated YsoOption Options = 1;
 }
+//已弃用
+message YsoOptions{
+  repeated string Names = 1;
+}
 //类生成器的参数
-message YsoClassGeneraterOptions{
+message YsoClassGeneraterOptionsWithVerbose{
   string Key = 1;
   string KeyVerbose = 2;
   string Help = 3;
   string Value = 4;
   string Type = 5;
+  map<string,YsoClassOptionsResponseWithVerbose> BindOptions = 6;
 }
+message YsoClassOptionsResponseWithVerbose{
+  repeated YsoClassGeneraterOptionsWithVerbose Options= 1;
+}
+//已弃用
+message YsoClassGeneraterOptions{
+  string Key = 1;
+  string Value = 2;
+  string Type = 3;
+}
+//已弃用
 message YsoClassOptionsResponse{
   repeated YsoClassGeneraterOptions Options= 1;
 }
 //生成代码和字节码
+message YsoOptionsRequerstWithVerbose{
+  string Gadget = 1;
+  string Class = 2;
+  repeated YsoClassGeneraterOptionsWithVerbose Options = 3;
+}
+//已弃用
 message YsoOptionsRequerst{
   string Gadget = 1;
   string Class = 2;
@@ -940,6 +961,11 @@ message StartFacadesParams {
   // 验证端口是否转发成功
   bool Verify = 9;
 }
+message ApplyClassToFacadesParamsWithVerbose {
+  YsoOptionsRequerstWithVerbose GenerateClassParams = 1;
+  string Token = 2;
+}
+//已弃用
 message ApplyClassToFacadesParams {
   YsoOptionsRequerst GenerateClassParams = 1;
   string Token = 2;
