@@ -84,6 +84,7 @@ import {
     onLocalScriptToOnlinePlugin,
     SyncCloudButton
 } from "@/components/SyncCloudButton/SyncCloudButton"
+import { ENTERPRISE_STATUS,getJuageEnvFile } from "@/utils/envfile";
 import {fullscreen} from "@uiw/react-md-editor"
 
 const {Search} = Input
@@ -2871,6 +2872,16 @@ export const YakModuleOnlineList: React.FC<YakModuleOnlineListProps> = (props) =
             })
     })
     if (!userInfo.isLogin && (bind_me || queryOnline.recycle)) {
+        return (
+            <List
+                dataSource={[]}
+                locale={{emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description='未登录,请先登录' />}}
+            />
+        )
+    }
+    // 是否为企业版
+    const isEnterprise = ENTERPRISE_STATUS.IS_ENTERPRISE_STATUS===getJuageEnvFile()
+    if(!userInfo.isLogin && isEnterprise){
         return (
             <List
                 dataSource={[]}
