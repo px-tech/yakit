@@ -323,7 +323,7 @@ jobs:
 
 
   download_artifacts_ee:
-    if: ${{ startsWith(github.ref, 'refs/heads/ci/yakit-')
+    if: ${{ startsWith(github.ref, 'refs/heads/ci/yakit-') }}
     needs:
       - build_yakit
     runs-on: ubuntu-latest
