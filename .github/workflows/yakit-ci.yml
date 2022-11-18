@@ -267,7 +267,7 @@ jobs:
             Yakit-${{ steps.fetchtag_release.outputs.value }}-linux-amd64.AppImage:/yak/${{ steps.fetchtag_release.outputs.value }}/Yakit-${{ steps.fetchtag_release.outputs.value }}-linux-amd64.AppImage
 
 
-  download_artifacts_and_release:
+  download_artifacts_ee:
     if: ${{ startsWith(github.ref, 'refs/heads/ci/yakit-')
     needs:
       - build_yakit
