@@ -55,6 +55,7 @@ import { JavaPayloadPage } from "@/pages/payloadGenerater/NewJavaPayloadPage"
 import { NewReverseServerPage } from "@/pages/reverseServer/NewReverseServerPage"
 import AccountAdminPage from "@/pages/enterpriseAdminPage/AccountAdminPage"
 import RoleAdminPage from "@/pages/enterpriseAdminPage/RoleAdminPage";
+import LicenseAdminPage from "@/pages/enterpriseAdminPage/LicenseAdminPage";
 
 const HTTPHacker = React.lazy(() => import("../pages/hacker/httpHacker"))
 const CodecPage = React.lazy(() => import("../pages/codec/CodecPage"))
@@ -130,6 +131,7 @@ export enum Route {
     // 管理
     AccountAdminPage = "account-admin-page", // 用户管理
     RoleAdminPage = "role-admin-page", // 角色管理
+    LicenseAdminPage = "license-admin-page", // license管理
 }
 
 export function RouteNameToVerboseName(r: string) {
@@ -264,7 +266,14 @@ export const RouteMenuData: MenuDataProps[] = [
         icon: <FireOutlined />,
         disabled: true,
         hidden: true
-    }
+    },
+    {
+        key: Route.LicenseAdminPage,
+        label: "License管理",
+        icon: <FireOutlined />,
+        disabled: true,
+        hidden: true
+    },
 ]
 
 interface ComponentParams {
@@ -428,6 +437,8 @@ export const ContentByRoute = (r: Route | string, yakScriptId?: number, params?:
             return <AccountAdminPage />
         case Route.RoleAdminPage: 
             return <RoleAdminPage />
+        case Route.LicenseAdminPage: 
+            return <LicenseAdminPage />
         default:
             return <div />
     }
