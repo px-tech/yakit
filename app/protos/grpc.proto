@@ -1386,6 +1386,8 @@ message ExportYakScriptRequest {
   int64 YakScriptId = 1;
   string OutputDir = 2;
   string OutputPluginDir = 3;
+  repeated int64 YakScriptIds = 4;
+  bool All = 5;
 }
 
 message ExportYakScriptResponse {
