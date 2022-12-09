@@ -1287,6 +1287,7 @@ message QueryDomainsRequest {
   string Network = 2;
   string DomainKeyword = 3;
   string Title = 4;
+  bool   All = 5;
 }
 
 message DeleteDomainsRequest {
@@ -1582,6 +1583,7 @@ message QueryPortsRequest {
   string Service = 4;
   string State = 5;
   string Title = 6;
+  bool   All = 7;
 }
 
 message QueryPortsResponse {
