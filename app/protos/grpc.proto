@@ -2070,6 +2070,7 @@ message DeleteHTTPFlowRequest {
 
   string URLPrefix = 3;
   QueryHTTPFlowRequest Filter = 5;
+  repeated string  URLPrefixBatch = 6;
 }
 
 message QueryHTTPFlowsIdsRequest {
