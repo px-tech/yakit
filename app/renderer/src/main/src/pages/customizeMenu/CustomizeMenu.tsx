@@ -14,7 +14,7 @@ import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd"
 import {Button, Input, Radio} from "antd"
 import {useMemoizedFn, useThrottleFn} from "ahooks"
 import {randomString} from "@/utils/randomUtil"
-import {DefaultPluginIcon} from "./icon/menuIcon"
+// import {DefaultPluginIcon} from "./icon/menuIcon"
 
 const reorder = (list: MenuDataProps[], startIndex: number, endIndex: number) => {
     const result = Array.from(list)
@@ -323,7 +323,7 @@ const SecondMenuItem: React.FC<SecondMenuItemProps> = React.memo((props) => {
                         [style["content-icon-active"]]: isDragging
                     })}
                 />
-                <DefaultPluginIcon />
+                {/* <DefaultPluginIcon /> */}
                 <div>
                     <div className={style["second-menu-label"]}>{menuItem.label}</div>
                     <div className={style["second-menu-describe"]}>
