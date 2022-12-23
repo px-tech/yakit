@@ -38,7 +38,6 @@ export interface UILayoutProp {
     children?: React.ReactNode
     linkSuccess?: () => any
 }
-
 /** 已启动引擎的pid信息 */
 interface yakProcess {
     port: number
@@ -586,7 +585,6 @@ interface YaklangEngineHintProps {
     setIsRemoteEngine: (flag: boolean) => any
     startEngine: () => any
 }
-
 const YaklangEngineHint: React.FC<YaklangEngineHintProps> = React.memo((props) => {
     const {system, visible, setIsRemoteEngine, startEngine} = props
 
@@ -878,7 +876,6 @@ interface AgrAndQSModalProps {
     visible: boolean
     setVisible: (flag: boolean) => any
 }
-
 /** @name 用户协议弹窗 */
 const AgreementContentModal: React.FC<AgrAndQSModalProps> = React.memo((props) => {
     const {isTop, setIsTop, system, visible, setVisible} = props
@@ -1154,7 +1151,6 @@ interface RemoteYaklangEngineProps {
     onSubmit: (info: RemoteLinkInfo) => any
     onCancel: () => any
 }
-
 /** @name 远程连接配置参数 */
 interface RemoteLinkInfo {
     /** 是否保存为历史连接 */
@@ -1171,14 +1167,12 @@ interface RemoteLinkInfo {
     caPem?: string
     password?: string
 }
-
 const DefaultRemoteLink: RemoteLinkInfo = {
     allowSave: false,
     host: "127.0.0.1",
     port: "8087",
     tls: false
 }
-
 /** @name 本地缓存远程连接配置信息 */
 interface YakitAuthInfo {
     name: string
@@ -1188,7 +1182,6 @@ interface YakitAuthInfo {
     tls: boolean
     password: string
 }
-
 /** @name 远程连接UI */
 const RemoteYaklangEngine: React.FC<RemoteYaklangEngineProps> = React.memo((props) => {
     const {loading, onSubmit, onCancel} = props
@@ -1402,12 +1395,10 @@ Mx5C8WSoRFWx5H0afXDHptF4rq5bI/djg04VM5ibI5GJ3i1EybBpbGj3rRBY+sF9
 FRmP2Nx+zifhMNe300xfHzqNeN3D+Uix6+GOkBoYI65KNPGqwi8uy9HlJVx3Jkht
 WOG+9PGLcr4IRJx5LUEZ5FB1
 -----END CERTIFICATE-----`
-
 interface PEMExampleProps {
     children?: any
     setShow?: (flag: boolean) => any
 }
-
 /** @name PEM示例弹窗 */
 const PEMExample: React.FC<PEMExampleProps> = React.memo((props) => {
     const {children, setShow} = props
@@ -1490,7 +1481,6 @@ interface DownloadYaklangProps {
     updateReconnect: () => any
     killEnginePid: () => any
 }
-
 /** @name Yaklang引擎更新下载弹窗 */
 const DownloadYaklang: React.FC<DownloadYaklangProps> = React.memo((props) => {
     const {system, visible, setVisible, updateReconnect, killEnginePid} = props
@@ -1735,7 +1725,6 @@ interface DownloadYakitProps {
     visible: boolean
     setVisible: (flag: boolean) => any
 }
-
 /** @name Yakit软件更新下载弹窗 */
 const DownloadYakit: React.FC<DownloadYakitProps> = React.memo((props) => {
     const {system, visible, setVisible} = props
@@ -2026,7 +2015,6 @@ interface HintRestartEngineProps {
     setVisible: (flag: boolean) => any
     startEngine: () => any
 }
-
 /** @name 意外断开引擎连接时的提示弹窗 */
 const HintRestartEngine: React.FC<HintRestartEngineProps> = React.memo((props) => {
     const {visible, setVisible, startEngine} = props
@@ -2115,7 +2103,6 @@ interface DatabaseErrorHintProps {
     setVisible: (flag: boolean) => any
     startEngine: () => any
 }
-
 /** @name 意外断开引擎连接时的提示弹窗 */
 const DatabaseErrorHint: React.FC<DatabaseErrorHintProps> = React.memo((props) => {
     const {visible, setVisible, startEngine} = props
