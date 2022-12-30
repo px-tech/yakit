@@ -465,6 +465,8 @@
 
         svg {
             color: var(--yakit-body-text-color);
+            width: 16px;
+            height: 16px;
         }
 
         &:hover {
@@ -482,12 +484,16 @@
             height: 16px;
         }
 
-        .customize-item-right {
-            height: 15px;
-        }
-
         .customize-item-label {
             margin-left: 4px;
+        }
+    }
+
+    .customize-item-select {
+        color: var(--yakit-primary-color);
+
+        svg {
+            color: var(--yakit-primary-color);
         }
     }
 }
