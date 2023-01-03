@@ -9,7 +9,8 @@ import {
     DotsHorizontalIcon,
     SaveIcon,
     SortAscendingIcon,
-    SortDescendingIcon
+    SortDescendingIcon,
+    HomeSvgIcon
 } from "@/assets/newIcon"
 import ReactResizeDetector from "react-resize-detector"
 import {useGetState, useMemoizedFn} from "ahooks"
@@ -31,15 +32,15 @@ import {YakitButton} from "@/components/yakitUI/YakitButton/YakitButton"
 export const getScriptIcon = (name: string) => {
     switch (name) {
         case "基础爬虫":
-            return <MenuBasicCrawlerIcon/>
+            return <MenuBasicCrawlerIcon />
         case "空间引擎: Hunter": //中文
-            return <MenuSpaceEngineHunterIcon/>
+            return <MenuSpaceEngineHunterIcon />
         case "子域名收集":
-            return <MenuSubDomainCollectionIcon/>
+            return <MenuSubDomainCollectionIcon />
         case "综合目录扫描与爆破":
-            return <MenuComprehensiveCatalogScanningAndBlastingIcon/>
+            return <MenuComprehensiveCatalogScanningAndBlastingIcon />
         default:
-            return <MenuDefaultPluginIcon/>
+            return <MenuDefaultPluginIcon />
     }
 }
 
@@ -159,134 +160,160 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
     const onTabClick = useMemoizedFn((key) => {
         onRouteMenuSelect(key as Route)
     })
+    console.log("routeMenu", routeMenu, subMenuData)
+
+    const goHomePage = () => {}
+
     return (
         <div className={style["heard-menu-body"]}>
-            <div
-                className={classNames(style["heard-menu"], {
-                    [style["heard-menu-expand"]]: isExpand
-                })}
-            >
-                <ReactResizeDetector
-                    onResize={(w) => {
-                        if (!w) {
-                            return
-                        }
-                        setWidth(w)
-                    }}
-                    handleWidth={true}
-                    handleHeight={true}
-                    refreshMode={"debounce"}
-                    refreshRate={50}
-                />
-                <div className={classNames(style["heard-menu-left"])} ref={menuLeftRef}>
-                    <div className={classNames(style["heard-menu-left-inner"])} ref={menuLeftInnerRef}>
-                        {routeMenu
-                            .filter((ele) => ele.subMenuData && ele.subMenuData?.length > 0)
-                            .map((menuItem, index) => {
-                                return (
-                                    <RouteMenuDataItem
-                                        key={`menuItem-${menuItem.id}`}
-                                        menuItem={menuItem}
-                                        isShow={number > 0 ? number <= index : false}
-                                        onSelect={(r) => onRouteMenuSelect(r.key as Route)}
-                                        isExpand={isExpand}
-                                        setSubMenuData={(menu) => {
-                                            setSubMenuData(menu.subMenuData || [])
-                                            setMenuId(menu.id || "")
-                                        }}
-                                        activeMenuId={menuId}
-                                    />
-                                )
-                            })}
-                    </div>
-                    {number > 0 && routeMenuDataAfter.length > 0 && (
-                        <>
-                            <CollapseMenu
-                                moreLeft={moreLeft}
-                                menuData={routeMenuDataAfter}
-                                isExpand={isExpand}
-                                onMenuSelect={(key) => onRouteMenuSelect(key as Route)}
-                            />
-                        </>
-                    )}
-                </div>
-                <div className={classNames(style["heard-menu-right"])}>
-                    <YakitButton
-                        type='text'
-                        className={style["heard-menu-theme"]}
-                        onClick={() => onImportShare()}
-                        icon={<SaveIcon/>}
-                    >
-                        导入协作资源
-                    </YakitButton>
-                    <YakitButton
-                        type="secondary2"
-                        className={style["heard-menu-grey"]}
-                        onClick={() => onRouteMenuSelect(Route.PayloadManager)}
-                        icon={<MenuPayloadIcon/>}
-                    >
-                        Payload
-                    </YakitButton>
-                    <YakitButton
-                        type="secondary2"
-                        className={classNames(style["heard-menu-grey"], style["heard-menu-yak-run"], {
-                            [style["margin-right-0"]]: isExpand
-                        })}
-                        onClick={() => onRouteMenuSelect(Route.YakScript)}
-                        icon={<MenuYakRunnerIcon/>}
-                    >
-                        Yak Runner
-                    </YakitButton>
-                    {!isExpand && (
-                        <div className={style["heard-menu-sort"]} onClick={() => onExpand()}>
-                            {!isExpand && <SortDescendingIcon/>}
-                        </div>
-                    )}
-                </div>
-            </div>
             {isExpand && (
-                <div className={style["heard-sub-menu-expand"]}>
-                    <Tabs
-                        tabBarExtraContent={
-                            <div className={style["heard-menu-sort"]} onClick={() => setIsExpand(false)}>
-                                <SortAscendingIcon/>
-                            </div>
-                        }
-                        onTabClick={onTabClick}
-                        popupClassName={style["heard-sub-menu-popup"]}
-                        moreIcon={<DotsHorizontalIcon className={style["dots-icon"]}/>}
-                    >
-                        {subMenuData.map((item, index) => (
-                            <Tabs.TabPane
-                                tab={
-                                    <div className={style["sub-menu-expand"]}>
-                                        <div
-                                            className={style["sub-menu-expand-item"]}
-                                            style={{paddingLeft: index === 0 ? 0 : ""}}
-                                        >
-                                            <div className={style["sub-menu-expand-item-icon"]}>{item.icon}</div>
-                                            <Tooltip title={item.label} placement='bottom'>
-                                                <div
-                                                    className={classNames(
-                                                        style["sub-menu-expand-item-label"],
-                                                        style["heard-menu-item-label"]
-                                                    )}
-                                                >
-                                                    {item.label}
-                                                </div>
-                                            </Tooltip>
-                                        </div>
-                                        {index !== subMenuData.length - 1 && (
-                                            <div className={style["sub-menu-expand-item-line"]}/>
-                                        )}
-                                    </div>
-                                }
-                                key={item.key}
-                            />
-                        ))}
-                    </Tabs>
+                <div className={style["heard-menu-home"]} onClick={() => goHomePage()}>
+                    <div className={classNames(style["heard-menu-home-title"], style["heard-menu-item-active"])}>
+                        首页
+                    </div>
+                    <HomeSvgIcon />
                 </div>
             )}
+            <div
+                className={classNames(style["heard-menu-main"], {
+                    [style["heard-menu-main-no-expand"]]: !isExpand
+                })}
+            >
+                {!isExpand && (
+                    <div className={style["heard-menu-home-icon-box"]}>
+                        <div className={style["heard-menu-home-small-icon"]} onClick={() => goHomePage()}>
+                            <HomeSvgIcon />
+                        </div>
+                    </div>
+                )}
+                <div
+                    className={classNames(style["heard-menu"], {
+                        [style["heard-menu-expand"]]: isExpand,
+                        [style["heard-menu-no-expand"]]: !isExpand
+                    })}
+                >
+                    <ReactResizeDetector
+                        onResize={(w) => {
+                            if (!w) {
+                                return
+                            }
+                            setWidth(w)
+                        }}
+                        handleWidth={true}
+                        handleHeight={true}
+                        refreshMode={"debounce"}
+                        refreshRate={50}
+                    />
+                    <div className={classNames(style["heard-menu-left"])} ref={menuLeftRef}>
+                        <div className={classNames(style["heard-menu-left-inner"])} ref={menuLeftInnerRef}>
+                            {routeMenu
+                                .filter((ele) => ele.subMenuData && ele.subMenuData?.length > 0)
+                                .map((menuItem, index) => {
+                                    return (
+                                        <RouteMenuDataItem
+                                            key={`menuItem-${menuItem.id}`}
+                                            menuItem={menuItem}
+                                            isShow={number > 0 ? number <= index : false}
+                                            onSelect={(r) => onRouteMenuSelect(r.key as Route)}
+                                            isExpand={isExpand}
+                                            setSubMenuData={(menu) => {
+                                                setSubMenuData(menu.subMenuData || [])
+                                                setMenuId(menu.id || "")
+                                            }}
+                                            activeMenuId={menuId}
+                                        />
+                                    )
+                                })}
+                        </div>
+                        {number > 0 && routeMenuDataAfter.length > 0 && (
+                            <>
+                                <CollapseMenu
+                                    moreLeft={moreLeft}
+                                    menuData={routeMenuDataAfter}
+                                    isExpand={isExpand}
+                                    onMenuSelect={(key) => onRouteMenuSelect(key as Route)}
+                                />
+                            </>
+                        )}
+                    </div>
+                    <div className={classNames(style["heard-menu-right"])}>
+                        <YakitButton
+                            type='text'
+                            className={style["heard-menu-theme"]}
+                            onClick={() => onImportShare()}
+                            icon={<SaveIcon />}
+                        >
+                            导入协作资源
+                        </YakitButton>
+                        <YakitButton
+                            type='secondary2'
+                            className={style["heard-menu-grey"]}
+                            onClick={() => onRouteMenuSelect(Route.PayloadManager)}
+                            icon={<MenuPayloadIcon />}
+                        >
+                            Payload
+                        </YakitButton>
+                        <YakitButton
+                            type='secondary2'
+                            className={classNames(style["heard-menu-grey"], style["heard-menu-yak-run"], {
+                                [style["margin-right-0"]]: isExpand
+                            })}
+                            onClick={() => onRouteMenuSelect(Route.YakScript)}
+                            icon={<MenuYakRunnerIcon />}
+                        >
+                            Yak Runner
+                        </YakitButton>
+                        {!isExpand && (
+                            <div className={style["heard-menu-sort"]} onClick={() => onExpand()}>
+                                {!isExpand && <SortDescendingIcon />}
+                            </div>
+                        )}
+                    </div>
+                </div>
+                {isExpand && (
+                    <div className={style["heard-sub-menu-expand"]}>
+                        <Tabs
+                            tabBarExtraContent={
+                                <div className={style["heard-menu-sort"]} onClick={() => setIsExpand(false)}>
+                                    <SortAscendingIcon />
+                                </div>
+                            }
+                            onTabClick={onTabClick}
+                            popupClassName={style["heard-sub-menu-popup"]}
+                            moreIcon={<DotsHorizontalIcon className={style["dots-icon"]} />}
+                        >
+                            {subMenuData.map((item, index) => (
+                                <Tabs.TabPane
+                                    tab={
+                                        <div className={style["sub-menu-expand"]}>
+                                            <div
+                                                className={style["sub-menu-expand-item"]}
+                                                style={{paddingLeft: index === 0 ? 0 : ""}}
+                                            >
+                                                <div className={style["sub-menu-expand-item-icon"]}>{item.icon}</div>
+                                                <Tooltip title={item.label} placement='bottom'>
+                                                    <div
+                                                        className={classNames(
+                                                            style["sub-menu-expand-item-label"],
+                                                            style["heard-menu-item-label"]
+                                                        )}
+                                                    >
+                                                        {item.label}
+                                                    </div>
+                                                </Tooltip>
+                                            </div>
+                                            {index !== subMenuData.length - 1 && (
+                                                <div className={style["sub-menu-expand-item-line"]} />
+                                            )}
+                                        </div>
+                                    }
+                                    key={item.key}
+                                />
+                            ))}
+                        </Tabs>
+                    </div>
+                )}
+            </div>
         </div>
     )
 })
@@ -318,7 +345,7 @@ const RouteMenuDataItem: React.FC<RouteMenuDataItemProps> = React.memo((props) =
         (isExpand && popoverContent) || (
             <YakitPopover
                 placement='bottomLeft'
-                content={<SubMenu subMenuData={menuItem.subMenuData || []} onSelect={onSelect}/>}
+                content={<SubMenu subMenuData={menuItem.subMenuData || []} onSelect={onSelect} />}
                 trigger='hover'
                 overlayClassName={classNames(style["popover"], {
                     [style["popover-content"]]: menuItem.subMenuData && menuItem.subMenuData.length <= 1
@@ -342,7 +369,7 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
                     key={`subMenuItem-${subMenuItem.key}`}
                     onClick={() => onSelect(subMenuItem)}
                 >
-                    {subMenuItem.icon || <MenuDefaultPluginIcon/>}
+                    {subMenuItem.icon || <MenuDefaultPluginIcon />}
                     <div className={style["heard-sub-menu-label"]}>{subMenuItem.label}</div>
                 </div>
             ))}
@@ -393,7 +420,7 @@ const CollapseMenu: React.FC<CollapseMenuProp> = React.memo((props) => {
                     })}
                 >
                     更多
-                    {(show && <ChevronUpIcon/>) || <ChevronDownIcon/>}
+                    {(show && <ChevronUpIcon />) || <ChevronDownIcon />}
                 </div>
             </YakitPopover>
         </div>
