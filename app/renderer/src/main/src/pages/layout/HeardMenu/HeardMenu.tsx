@@ -160,9 +160,10 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
     const onTabClick = useMemoizedFn((key) => {
         onRouteMenuSelect(key as Route)
     })
-    console.log("routeMenu", routeMenu, subMenuData)
 
-    const goHomePage = () => {}
+    const goHomePage = () => {
+        onRouteMenuSelect("new-home" as Route)
+    }
 
     return (
         <div className={style["heard-menu-body"]}>

@@ -46,6 +46,7 @@ import AccountAdminPage from "@/pages/enterpriseAdminPage/AccountAdminPage"
 import RoleAdminPage from "@/pages/enterpriseAdminPage/RoleAdminPage"
 import LicenseAdminPage from "@/pages/enterpriseAdminPage/LicenseAdminPage"
 import {TrustListPage} from "@/pages/enterpriseAdminPage/TrustListPage"
+import NewHome from "@/pages/newHome/NewHome";
 
 import {
     MenuDomainAssetsIcon,
@@ -156,6 +157,9 @@ export enum Route {
 
     // 获取标准输出流
     AttachEngineCombinedOutput = "attach-engine-combined-output",
+
+    // 首页
+    NewHome = "new-home"
 }
 
 export function RouteNameToVerboseName(r: string) {
@@ -371,6 +375,8 @@ export const ContentByRoute = (r: Route | string, yakScriptId?: number, params?:
             return <LicenseAdminPage />
         case Route.TrustListPage:
             return <TrustListPage />
+        case Route.NewHome:
+            return <NewHome />
         case Route.AttachEngineCombinedOutput:
             return <EngineConsole/>
         default:
@@ -536,6 +542,13 @@ export const DefaultRouteMenuData: MenuDataProps[] = [
         key: Route.TrustListPage,
         label: "用户管理",
         disabled: true,
+        hidden: true
+    },
+    {
+        id:"15",
+        key: Route.NewHome,
+        label:"首页",
+        disabled:true,
         hidden: true
     }
 ]
